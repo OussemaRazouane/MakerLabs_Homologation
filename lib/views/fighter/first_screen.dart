@@ -17,10 +17,15 @@ class _FighterS1State extends State<FighterS1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
-        title:Text(type,style:const TextStyle(fontSize: titleSize),),
+      appBar: AppBar(
+        title: Text(
+          type,
+          style: const TextStyle(fontSize: titleSize, color: textColor),
+        ),
         centerTitle: true,
+        backgroundColor: bgColorApp,
       ),
+      backgroundColor: bgColorGen,
       body:NumberScreen(
         name1:"Mobile robot during certification",
         name2:"Active weapon during certification",

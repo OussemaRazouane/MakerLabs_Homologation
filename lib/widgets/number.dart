@@ -43,7 +43,7 @@ class _NumberScreenState extends State<NumberScreen> {
           children: [
             Text(
               widget.name1,
-              style: const TextStyle(fontSize: labelSize),
+              style: const TextStyle(fontSize: labelSize, color: textColor),
             ),
             const SizedBox(
               height: 20,
@@ -60,7 +60,7 @@ class _NumberScreenState extends State<NumberScreen> {
             ),
             Text(
               widget.name2,
-              style: const TextStyle(fontSize: labelSize),
+              style: const TextStyle(fontSize: labelSize, color: textColor),
             ),
             const SizedBox(
               height: 20,
@@ -77,7 +77,7 @@ class _NumberScreenState extends State<NumberScreen> {
             ),
             Text(
               widget.name3,
-              style: const TextStyle(fontSize: labelSize),
+              style: const TextStyle(fontSize: labelSize, color: textColor),
             ),
             const SizedBox(
               height: 20,
@@ -97,7 +97,7 @@ class _NumberScreenState extends State<NumberScreen> {
                 children: [
                   Text(
                     widget.name4!,
-                    style: const TextStyle(fontSize: labelSize),
+                    style: const TextStyle(fontSize: labelSize, color: textColor),
                   ),
                   const SizedBox(
                     height: 20,
@@ -127,6 +127,7 @@ class _NumberScreenState extends State<NumberScreen> {
                     widget.name4!=null?CacheHelper.saveData(key: widget.name4!, value: val4.text):null;
                     Navigator.pushNamed(context, widget.routeForward);
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                  backgroundColor: Colors.green,
                       content: Text("Data saved successfully"),
                     ));
                   }

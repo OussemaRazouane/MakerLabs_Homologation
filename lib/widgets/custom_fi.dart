@@ -34,6 +34,8 @@ class _CustomFieldState extends State<CustomField> {
         labelText: widget.name,
         hintText: widget.name,
         focusColor:fieldColor,
+        hoverColor: fieldColor,
+        fillColor: fieldColor,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(fieldRadius),
         ),

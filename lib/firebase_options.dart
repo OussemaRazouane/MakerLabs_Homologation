@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'makerlab-fa936.appspot.com',
     measurementId: 'G-RN09HX54RY',
   );
+
 }

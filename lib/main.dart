@@ -8,7 +8,7 @@ import 'views/basic/second_screen.dart';
 import 'views/data_sheet.dart';
 import 'views/fighter/first_screen.dart';
 import 'views/fighter/second_screen.dart';
-import 'views/fighter/therd_screen.dart';
+import 'views/fighter/Third_screen.dart';
 import 'views/home.dart';
 import 'views/name_screen.dart';
 import 'firebase_options.dart';

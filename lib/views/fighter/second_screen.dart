@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:makerlab/DataBase/cache_helper.dart';
 import 'package:makerlab/constants/constant.dart';
-import 'package:makerlab/views/fighter/therd_screen.dart';
+import 'package:makerlab/views/fighter/third_screen.dart';
 import 'package:makerlab/widgets/number.dart';
 
 
@@ -18,9 +18,14 @@ class _FighterS2State extends State<FighterS2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:Text(type,style:const TextStyle(fontSize: titleSize),),
+        title: Text(
+          type,
+          style: const TextStyle(fontSize: titleSize, color: textColor),
+        ),
         centerTitle: true,
+        backgroundColor: bgColorApp,
       ),
+      backgroundColor: bgColorGen,
       body:NumberScreen(
         name1:"Presence of mechanical design",
         name2:"Robot Safety cectrical and mechanical",

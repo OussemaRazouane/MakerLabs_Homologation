@@ -18,9 +18,14 @@ class _FighterS3State extends State<FighterS3> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:Text(type,style:const TextStyle(fontSize: titleSize),),
+        title: Text(
+          type,
+          style: const TextStyle(fontSize: titleSize, color: textColor),
+        ),
         centerTitle: true,
+        backgroundColor: bgColorApp,
       ),
+      backgroundColor: bgColorGen,
       body:NumberScreen(
         name1:"Control board created by the team",
         name2:"Remote control board created by the team",
