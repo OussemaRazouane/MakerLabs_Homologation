@@ -252,9 +252,8 @@ class _DataState extends State<Data> {
                                     });
                                   } else {
                                     colRef = FirebaseFirestore.instance
-                                        .collection("Basic");
+                                        .collection(type);
                                     colRef.add({
-                                      "Type": type,
                                       list[0]: CacheHelper.getData(key: list[0])
                                           .toString(),
                                       list[1]: CacheHelper.getData(key: list[1])
