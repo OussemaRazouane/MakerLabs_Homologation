@@ -11,10 +11,14 @@ class NumberScreen extends StatefulWidget {
       required this.name2,
       required this.name3,
       this.name4, 
-      required this.routeForward});
+      required this.routeForward, this.maxName1=10, this.maxName2=10, this.maxName3=10, this.maxName4=10});
   final String name1;
   final String name2;
   final String name3;
+  final double maxName1;
+  final double maxName2;
+  final double maxName3;
+  final double maxName4;
   String? name4;
   final String routeForward;
 
@@ -51,9 +55,9 @@ class _NumberScreenState extends State<NumberScreen> {
             CustomField(
               txtKey: key1,
               value: val1,
-              name: "Note de ${widget.name1}",
+              name: widget.name1,
               type: TextInputType.number,
-              fn: (val) => val <= 10 && val >= 0,
+              fn: (val) => val <= widget.maxName1 && val >= 0,
             ),
             const SizedBox(
               height: 30,
@@ -68,9 +72,9 @@ class _NumberScreenState extends State<NumberScreen> {
             CustomField(
               txtKey: key2,
               value: val2,
-              name: "Note de ${widget.name2}",
+              name: widget.name2,
               type: TextInputType.number,
-              fn: (val) => val <= 10 && val >= 0,
+              fn: (val) => val <= widget.maxName2 && val >= 0,
             ),
             const SizedBox(
               height: 30,
@@ -85,9 +89,9 @@ class _NumberScreenState extends State<NumberScreen> {
             CustomField(
               txtKey: key3,
               value: val3,
-              name: "Note de ${widget.name3}",
+              name: widget.name3,
               type: TextInputType.number,
-              fn: (val) => val <= 10 && val >= 0,
+              fn: (val) => val <= widget.maxName3 && val >= 0,
             ),
             const SizedBox(
               height: 30,
@@ -105,9 +109,9 @@ class _NumberScreenState extends State<NumberScreen> {
                   CustomField(
                     txtKey: key4,
                     value: val4,
-                    name: "Note de ${widget.name4!}",
+                    name: widget.name4!,
                     type: TextInputType.number,
-                    fn: (val) => val <= 10 && val >= 0,
+                    fn: (val) => val <= widget.maxName4 && val >= 0,
                   ),
                   const SizedBox(
                     height: 30,
@@ -138,7 +142,7 @@ class _NumberScreenState extends State<NumberScreen> {
                     borderRadius: BorderRadius.circular(buttonRadius),
                   ),
                   child: const Text(
-                    "Save data",
+                    "Next",
                     style: TextStyle(color: Colors.white, fontSize: labelSize),
                   ),
               ),

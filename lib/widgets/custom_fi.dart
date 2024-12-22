@@ -32,7 +32,7 @@ class _CustomFieldState extends State<CustomField> {
       keyboardType:widget.type,
       decoration: InputDecoration(
         labelText: widget.name,
-        hintText: widget.name,
+        hintText: "Enter ${widget.name}",
         focusColor:fieldColor,
         hoverColor: fieldColor,
         fillColor: fieldColor,
@@ -43,7 +43,7 @@ class _CustomFieldState extends State<CustomField> {
       validator: (val) {
         if (val!.isEmpty) {
           return "The ${widget.name}  is required";
-        } else if (!widget.fn(int.tryParse(val))&& widget.doIt) {
+        } else if (widget.doIt && !widget.fn(double.tryParse(val))) {
           return "Verify your ${widget.name} ";
         }
         return null;

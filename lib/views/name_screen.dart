@@ -77,7 +77,7 @@ class _NameScreenState extends State<NameScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "First Image",
+                  "Image N°1 :",
                   style: TextStyle(fontSize: labelSize, color: textColor),
                 ),
                 const SizedBox(
@@ -117,7 +117,7 @@ class _NameScreenState extends State<NameScreen> {
                   ],
                 ),
                 const Text(
-                  "Second Image",
+                  "Image N°2 :",
                   style: TextStyle(fontSize: labelSize, color: textColor),
                 ),
                 const SizedBox(
@@ -206,7 +206,7 @@ class _NameScreenState extends State<NameScreen> {
                             TextStyle(color: Colors.white, fontSize: labelSize),
                       ),
                     ),
-                    MaterialButton(
+                    OutlinedButton(
                       onPressed: () {
                         if (key1.currentState!.validate() == true &&
                             key2.currentState!.validate() == true) {
@@ -228,16 +228,27 @@ class _NameScreenState extends State<NameScreen> {
                           ));
                         }
                       },
-                      color: buttonColor,
-                      padding: const EdgeInsets.all(padding),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(buttonRadius),
-                      ),
+                      style: ButtonStyle(
+                          overlayColor:
+                              const WidgetStatePropertyAll(buttonColor),
+                          padding: const WidgetStatePropertyAll(
+                              EdgeInsetsDirectional.all(padding)),
+                          side: const WidgetStatePropertyAll(
+                              BorderSide(color: textColor, width: 1.8)),
+                          shape: WidgetStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(buttonRadius),
+                            ),
+                          )),
                       child: const Text(
-                        "Save Data",
-                        style: TextStyle(color: textColor, fontSize: labelSize),
+                        "Next",
+                        style: TextStyle(
+                            color: textColor,
+                            fontSize: labelSize,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
+                    
                   ],
                 ),
                 Center(
@@ -278,7 +289,7 @@ class _NameScreenState extends State<NameScreen> {
                         borderRadius: BorderRadius.circular(buttonRadius),
                       ),
                       child: const Text(
-                        "Save direct",
+                        "Data verification",
                         style:
                             TextStyle(color: Colors.white, fontSize: labelSize),
                       ),

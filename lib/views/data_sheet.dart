@@ -54,14 +54,14 @@ class _DataState extends State<Data> {
       list = [
         "Robot name",
         "Leader name",
-        "Carte de puissance",
-        "Carte de commande",
-        "Conception mecanique",
-        "Conception electrique",
-        "Poids",
-        "Langeur",
-        "Largeur",
-        "Hauteur",
+        "Power board",
+        "Command board",
+        "Mechanical design",
+        "Electrical design",
+        "Weight",
+        "Length",
+        "Width",
+        "Height",
       ];
     } else {
       list = [
@@ -115,7 +115,7 @@ class _DataState extends State<Data> {
                                   Row(
                                     children: [
                                       const Text(
-                                        "the first image: ",
+                                        "Image N°1 : ",
                                         style: TextStyle(
                                             fontSize: titleSize,
                                             color:
@@ -140,7 +140,7 @@ class _DataState extends State<Data> {
                                   Row(
                                     children: [
                                       const Text(
-                                        "the second image: ",
+                                        "Image N°2 : ",
                                         style: TextStyle(
                                             fontSize: titleSize,
                                             color:
@@ -162,23 +162,34 @@ class _DataState extends State<Data> {
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  for (int i = 0; i < list.length; i++)
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "${list[i]} : ",
-                                          style: const TextStyle(
-                                              fontSize: titleSize,
-                                              color: Color.fromARGB(
-                                                  255, 53, 40, 3)),
-                                        ),
-                                        Text(CacheHelper.getData(key: list[i]),
+                                  DataTable(
+                                    columns: const [
+                                      DataColumn(label: Text("Name")),
+                                      DataColumn(label: Text("Value")),
+                                    ],
+                                    rows:[
+                                      for (int i = 0; i < list.length; i++)
+                                        DataRow(cells: [
+                                          DataCell(Text(
+                                            "${list[i]} : ",
                                             style: const TextStyle(
                                                 fontSize: titleSize,
                                                 color: Color.fromARGB(
-                                                    255, 69, 52, 0))),
-                                      ],
-                                    ),
+                                                    255, 53, 40, 3)),
+                                          ),),
+                                          DataCell(Text(
+                                            CacheHelper.getData(key: list[i]),
+                                            style: const TextStyle(
+                                                fontSize: titleSize,
+                                                color: Color.fromARGB(
+                                                    255, 69, 52, 0))
+                                            )
+                                          ),
+                                          
+                                        ]),
+                                    ],
+                                  ),
+                                  
                                 ],
                               ),
                             ),
@@ -209,7 +220,7 @@ class _DataState extends State<Data> {
                                       color: Colors.white, fontSize: labelSize),
                                 ),
                               ),
-                              MaterialButton(
+                              OutlinedButton(
                                 onPressed: () async{
                                   String? firstimg=await uploadImageToFirebase(img1);
                                   String? secondimg=await uploadImageToFirebase(img2);
@@ -217,6 +228,7 @@ class _DataState extends State<Data> {
                                     colRef = FirebaseFirestore.instance
                                         .collection("Fighter");
                                     colRef.add({
+                                      "Round":1,
                                       list[0]: CacheHelper.getData(key: list[0])
                                           .toString(),
                                       list[1]: CacheHelper.getData(key: list[1])
@@ -252,39 +264,74 @@ class _DataState extends State<Data> {
                                     });
                                   } else {
                                     colRef = FirebaseFirestore.instance
-                                        .collection("Basic");
-                                    colRef.add({
-                                      "Type": type,
-                                      list[0]: CacheHelper.getData(key: list[0])
-                                          .toString(),
-                                      list[1]: CacheHelper.getData(key: list[1])
-                                          .toString(),
-                                      list[2]: int.tryParse(
-                                          CacheHelper.getData(key: list[2])),
-                                      list[3]: int.tryParse(
-                                          CacheHelper.getData(key: list[3])
-                                              .toString()),
-                                      list[4]: int.tryParse(
-                                          CacheHelper.getData(key: list[4])
-                                              .toString()),
-                                      list[5]: int.tryParse(
-                                          CacheHelper.getData(key: list[5])
-                                              .toString()),
-                                      list[6]: int.tryParse(
-                                          CacheHelper.getData(key: list[6])
-                                              .toString()),
-                                      list[7]: int.tryParse(
-                                          CacheHelper.getData(key: list[7])
-                                              .toString()),
-                                      list[8]: int.tryParse(
-                                          CacheHelper.getData(key: list[8])
-                                              .toString()),
-                                      list[9]: int.tryParse(
-                                          CacheHelper.getData(key: list[9])
-                                              .toString()),
-                                      "First image": firstimg,
-                                      "Second image": secondimg,
-                                    });
+                                        .collection(type);
+                                    if(["Line follower","Maze"].contains(type))
+                                    {  colRef.add({
+                                        "Trials":[{"Time":"0:000","Descalifier":false}],
+                                        list[0]: CacheHelper.getData(key: list[0])
+                                            .toString(),
+                                        list[1]: CacheHelper.getData(key: list[1])
+                                            .toString(),
+                                        list[2]: int.tryParse(
+                                            CacheHelper.getData(key: list[2])),
+                                        list[3]: int.tryParse(
+                                            CacheHelper.getData(key: list[3])
+                                                .toString()),
+                                        list[4]: int.tryParse(
+                                            CacheHelper.getData(key: list[4])
+                                                .toString()),
+                                        list[5]: int.tryParse(
+                                            CacheHelper.getData(key: list[5])
+                                                .toString()),
+                                        list[6]: double.tryParse(
+                                            CacheHelper.getData(key: list[6])
+                                                .toString()),
+                                        list[7]: double.tryParse(
+                                            CacheHelper.getData(key: list[7])
+                                                .toString()),
+                                        list[8]: double.tryParse(
+                                            CacheHelper.getData(key: list[8])
+                                                .toString()),
+                                        list[9]: double.tryParse(
+                                            CacheHelper.getData(key: list[9])
+                                                .toString()),
+                                        "First image": firstimg,
+                                        "Second image": secondimg,
+                                      });
+                                    }else{
+                                      colRef.add({
+                                        "Round":1,
+                                        list[0]: CacheHelper.getData(key: list[0])
+                                            .toString(),
+                                        list[1]: CacheHelper.getData(key: list[1])
+                                            .toString(),
+                                        list[2]: int.tryParse(
+                                            CacheHelper.getData(key: list[2])),
+                                        list[3]: int.tryParse(
+                                            CacheHelper.getData(key: list[3])
+                                                .toString()),
+                                        list[4]: int.tryParse(
+                                            CacheHelper.getData(key: list[4])
+                                                .toString()),
+                                        list[5]: int.tryParse(
+                                            CacheHelper.getData(key: list[5])
+                                                .toString()),
+                                        list[6]: double.tryParse(
+                                            CacheHelper.getData(key: list[6])
+                                                .toString()),
+                                        list[7]: double.tryParse(
+                                            CacheHelper.getData(key: list[7])
+                                                .toString()),
+                                        list[8]: double.tryParse(
+                                            CacheHelper.getData(key: list[8])
+                                                .toString()),
+                                        list[9]: double.tryParse(
+                                            CacheHelper.getData(key: list[9])
+                                                .toString()),
+                                        "First image": firstimg,
+                                        "Second image": secondimg,
+                                      });
+                                    }
                                   }
                                   setState(() {
                                     _isUploading = false;
@@ -303,17 +350,28 @@ class _DataState extends State<Data> {
                                         "Data saved in FireBse successfully"),
                                   ));
                                 },
-                                color: buttonColor,
-                                padding: const EdgeInsets.all(padding),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(buttonRadius),
+                                
+                                style: ButtonStyle(
+                                  overlayColor:
+                                      const WidgetStatePropertyAll(buttonColor),
+                                  padding: const WidgetStatePropertyAll(
+                                      EdgeInsetsDirectional.all(padding)),
+                                  side: const WidgetStatePropertyAll(
+                                      BorderSide(color: textColor, width: 1.8)),
+                                  shape: WidgetStatePropertyAll(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(buttonRadius),
+                                    ),
+                                  )
                                 ),
                                 child: const Text(
-                                  "Save in FireBase",
+                                  "Save",
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: labelSize),
+                                      color: textColor,
+                                      fontSize: labelSize,
+                                      fontWeight: FontWeight.bold),
                                 ),
+                                
                               ),
                             ],
                           )

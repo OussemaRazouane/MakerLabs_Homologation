@@ -24,10 +24,10 @@ class _FirstScreenState extends State<FirstScreen> {
       ),
       backgroundColor: bgColorGen,
       body:NumberScreen(
-        name1:"Carte de puissance" , 
-        name2: "Carte de commande", 
-        name3: "Conception mecanique", 
-        name4: "Conception electrique",
+        name1:"Power board" , 
+        name2: "Command board",
+        name3: "Mechanical design", 
+        name4: "Electrical design",
         routeForward:SecondScreen.routeName,
       ),
     );

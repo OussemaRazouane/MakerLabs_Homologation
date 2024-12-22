@@ -14,6 +14,7 @@ class SecondScreen extends StatefulWidget {
 
 class _SecondScreenState extends State<SecondScreen> {
   String type=CacheHelper.getData(key: "Type");
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,11 +24,15 @@ class _SecondScreenState extends State<SecondScreen> {
         backgroundColor: bgColorApp,
       ),
       backgroundColor: bgColorGen,
-      body:NumberScreen(
-        name1:"Poids" , 
-        name2: "Langeur", 
-        name3: "Largeur", 
-        name4: "Hauteur",
+      body: NumberScreen(
+        name1:"Weight" ,
+        maxName1:double.tryParse(CacheHelper.getData(key: "MaxWeight"))! ,
+        name2: "Length",
+        maxName2:double.tryParse(CacheHelper.getData(key: "MaxLength"))!  , 
+        name3: "Width",
+        maxName3:double.tryParse(CacheHelper.getData(key: "MaxWidth") )! ,
+        name4: "Height",
+        maxName4: double.tryParse(CacheHelper.getData(key: "MaxHeight") )! ,
         routeForward: Data.routeName,
       ),
     );

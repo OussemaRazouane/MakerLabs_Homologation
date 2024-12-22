@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makerlab/constants/constant.dart';
+import 'package:makerlab/views/name_screen.dart';
 
 class ExcpScreen extends StatefulWidget {
   const ExcpScreen({super.key});
@@ -36,7 +37,8 @@ class _ExcpScreenState extends State<ExcpScreen> {
               IconButton(
                 icon:const Icon(Icons.arrow_back,size:50,color:fieldColor),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pushReplacementNamed(
+                                context, NameScreen.routeName);
                 }
               ),
             ],
