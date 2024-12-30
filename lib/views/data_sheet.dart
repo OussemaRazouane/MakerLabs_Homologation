@@ -21,6 +21,8 @@ class _DataState extends State<Data> {
   String type = CacheHelper.getData(key: "Type");
   bool _isUploading = false;
   List<String> list = [];
+  int point = 0;
+  int total = 0;
   late CollectionReference colRef;
   Future<String?> uploadImageToFirebase(Uint8List? img) async {
     if (img == null) return null;
@@ -78,6 +80,21 @@ class _DataState extends State<Data> {
         "Emergency button accessible",
       ];
     }
+    for (String line in list) {
+      if (![
+        "Robot name",
+        "Leader name",
+        "Weight",
+        "Length",
+        "Width",
+        "Height",
+      ].contains(line)) {
+        point += int.tryParse(CacheHelper.getData(key: line))!;
+        total += 10;
+      }
+    }
+    list.add("TotalHomPoint");
+    CacheHelper.saveData(key: "TotalHomPoint", value: point);
   }
 
   @override
@@ -95,7 +112,7 @@ class _DataState extends State<Data> {
         backgroundColor: bgColorGen,
         body: Center(
           child: _isUploading
-              ? const CircularProgressIndicator(color:bgColorApp)
+              ? const CircularProgressIndicator(color: bgColorApp)
               : SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Padding(
@@ -167,29 +184,27 @@ class _DataState extends State<Data> {
                                       DataColumn(label: Text("Name")),
                                       DataColumn(label: Text("Value")),
                                     ],
-                                    rows:[
+                                    rows: [
                                       for (int i = 0; i < list.length; i++)
                                         DataRow(cells: [
-                                          DataCell(Text(
-                                            "${list[i]} : ",
-                                            style: const TextStyle(
-                                                fontSize: titleSize,
-                                                color: Color.fromARGB(
-                                                    255, 53, 40, 3)),
-                                          ),),
-                                          DataCell(Text(
-                                            CacheHelper.getData(key: list[i]),
-                                            style: const TextStyle(
-                                                fontSize: titleSize,
-                                                color: Color.fromARGB(
-                                                    255, 69, 52, 0))
-                                            )
+                                          DataCell(
+                                            Text(
+                                              "${list[i]} : ",
+                                              style: const TextStyle(
+                                                  fontSize: titleSize,
+                                                  color: Color.fromARGB(
+                                                      255, 53, 40, 3)),
+                                            ),
                                           ),
-                                          
+                                          DataCell(Text(
+                                              CacheHelper.getData(key: list[i]),
+                                              style: const TextStyle(
+                                                  fontSize: titleSize,
+                                                  color: Color.fromARGB(
+                                                      255, 69, 52, 0)))),
                                         ]),
                                     ],
                                   ),
-                                  
                                 ],
                               ),
                             ),
@@ -199,7 +214,7 @@ class _DataState extends State<Data> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               MaterialButton(
-                                onPressed: () async{
+                                onPressed: () async {
                                   Navigator.pushReplacementNamed(
                                       context, NameScreen.routeName);
                                   ScaffoldMessenger.of(context)
@@ -221,14 +236,17 @@ class _DataState extends State<Data> {
                                 ),
                               ),
                               OutlinedButton(
-                                onPressed: () async{
-                                  String? firstimg=await uploadImageToFirebase(img1);
-                                  String? secondimg=await uploadImageToFirebase(img2);
+                                onPressed: () async {
+                                  String? firstimg =
+                                      await uploadImageToFirebase(img1);
+                                  String? secondimg =
+                                      await uploadImageToFirebase(img2);
                                   if (type == "Fighter") {
                                     colRef = FirebaseFirestore.instance
                                         .collection("Fighter");
                                     colRef.add({
-                                      "Round":1,
+                                      "Round": 1,
+                                      
                                       list[0]: CacheHelper.getData(key: list[0])
                                           .toString(),
                                       list[1]: CacheHelper.getData(key: list[1])
@@ -259,19 +277,24 @@ class _DataState extends State<Data> {
                                       list[10]: int.tryParse(
                                           CacheHelper.getData(key: list[10])
                                               .toString()),
-                                      "First image":firstimg,
+                                      list[11]: point,
+                                      "First image": firstimg,
                                       "Second image": secondimg,
                                     });
                                   } else {
                                     colRef = FirebaseFirestore.instance
                                         .collection(type);
-                                    if(["Line follower","Maze"].contains(type))
-                                    {  colRef.add({
-                                        "Trials":[{"Time":"0:000","Descalifier":false}],
-                                        list[0]: CacheHelper.getData(key: list[0])
-                                            .toString(),
-                                        list[1]: CacheHelper.getData(key: list[1])
-                                            .toString(),
+                                    if (["Line follower", "Maze"]
+                                        .contains(type)) {
+                                      colRef.add({
+                                        "Trial": 1,
+                                        "TotalJuryPoint": 0,
+                                        list[0]:
+                                            CacheHelper.getData(key: list[0])
+                                                .toString(),
+                                        list[1]:
+                                            CacheHelper.getData(key: list[1])
+                                                .toString(),
                                         list[2]: int.tryParse(
                                             CacheHelper.getData(key: list[2])),
                                         list[3]: int.tryParse(
@@ -295,16 +318,20 @@ class _DataState extends State<Data> {
                                         list[9]: double.tryParse(
                                             CacheHelper.getData(key: list[9])
                                                 .toString()),
+                                        list[10]: point,
                                         "First image": firstimg,
                                         "Second image": secondimg,
                                       });
-                                    }else{
+                                    } else {
                                       colRef.add({
-                                        "Round":1,
-                                        list[0]: CacheHelper.getData(key: list[0])
-                                            .toString(),
-                                        list[1]: CacheHelper.getData(key: list[1])
-                                            .toString(),
+                                        "Round": 1,
+                                        
+                                        list[0]:
+                                            CacheHelper.getData(key: list[0])
+                                                .toString(),
+                                        list[1]:
+                                            CacheHelper.getData(key: list[1])
+                                                .toString(),
                                         list[2]: int.tryParse(
                                             CacheHelper.getData(key: list[2])),
                                         list[3]: int.tryParse(
@@ -328,6 +355,7 @@ class _DataState extends State<Data> {
                                         list[9]: double.tryParse(
                                             CacheHelper.getData(key: list[9])
                                                 .toString()),
+                                        list[10]: point,
                                         "First image": firstimg,
                                         "Second image": secondimg,
                                       });
@@ -346,24 +374,23 @@ class _DataState extends State<Data> {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(const SnackBar(
                                     backgroundColor: Colors.green,
-                                    content: Text(
-                                        "Data saved in FireBse successfully"),
+                                    content: Text("Data saved successfully"),
                                   ));
                                 },
-                                
                                 style: ButtonStyle(
-                                  overlayColor:
-                                      const WidgetStatePropertyAll(buttonColor),
-                                  padding: const WidgetStatePropertyAll(
-                                      EdgeInsetsDirectional.all(padding)),
-                                  side: const WidgetStatePropertyAll(
-                                      BorderSide(color: textColor, width: 1.8)),
-                                  shape: WidgetStatePropertyAll(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(buttonRadius),
-                                    ),
-                                  )
-                                ),
+                                    overlayColor: const WidgetStatePropertyAll(
+                                        buttonColor),
+                                    padding: const WidgetStatePropertyAll(
+                                        EdgeInsetsDirectional.all(padding)),
+                                    side: const WidgetStatePropertyAll(
+                                        BorderSide(
+                                            color: textColor, width: 1.8)),
+                                    shape: WidgetStatePropertyAll(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(buttonRadius),
+                                      ),
+                                    )),
                                 child: const Text(
                                   "Save",
                                   style: TextStyle(
@@ -371,7 +398,6 @@ class _DataState extends State<Data> {
                                       fontSize: labelSize,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                
                               ),
                             ],
                           )
