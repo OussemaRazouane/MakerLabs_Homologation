@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="makerlab"
+        android:label="ISTIC Robots 2.0 Homologation"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
