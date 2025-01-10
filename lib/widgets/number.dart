@@ -10,16 +10,21 @@ class NumberScreen extends StatefulWidget {
       required this.name1,
       required this.name2,
       required this.name3,
-      this.name4, 
-      required this.routeForward, this.maxName1=10, this.maxName2=10, this.maxName3=10, this.maxName4=10});
+      this.name4,
+      this.name5, 
+      required this.routeForward, this.maxName1=10, this.maxName2=10, this.maxName3=10, this.maxName4=10,
+      this.maxName5 = 10});
   final String name1;
   final String name2;
   final String name3;
+  String? name4;
+  String? name5;
   final double maxName1;
   final double maxName2;
   final double maxName3;
   final double maxName4;
-  String? name4;
+  final double maxName5;
+  
   final String routeForward;
 
   @override
@@ -35,6 +40,8 @@ class _NumberScreenState extends State<NumberScreen> {
   GlobalKey<FormState> key3 = GlobalKey();
   TextEditingController val4 = TextEditingController();
   GlobalKey<FormState> key4 = GlobalKey();
+  TextEditingController val5 = TextEditingController();
+  GlobalKey<FormState> key5 = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -118,17 +125,41 @@ class _NumberScreenState extends State<NumberScreen> {
                   ),
                 ],
               ),
+              if(widget.name5 != null)
+              Column(
+                children: [
+                  Text(
+                    widget.name5!,
+                    style: const TextStyle(fontSize: labelSize, color: textColor),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CustomField(
+                    txtKey: key5,
+                    value: val5,
+                    name: widget.name5!,
+                    type: TextInputType.number,
+                    fn: (val) => val <= widget.maxName5 && val >= 0,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                ],
+              ),
             Center(
               child: MaterialButton(
                 onPressed: () {
                   if (key1.currentState!.validate() == true &&
                       key2.currentState!.validate() == true &&
                       key3.currentState!.validate() == true &&
-                      (widget.name4!=null?key4.currentState!.validate() == true:true)) {
+                      (widget.name4!=null?key4.currentState!.validate() == true:true)&&
+                      (widget.name5!=null?key5.currentState!.validate() == true:true)) {
                     CacheHelper.saveData(key: widget.name1, value:val1.text);
                     CacheHelper.saveData(key: widget.name2, value: val2.text);
                     CacheHelper.saveData(key: widget.name3, value: val3.text);
                     widget.name4!=null?CacheHelper.saveData(key: widget.name4!, value: val4.text):null;
+                    widget.name5!=null?CacheHelper.saveData(key: widget.name5!, value: val5.text):null;
                     Navigator.pushNamed(context, widget.routeForward);
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                   backgroundColor: Colors.green,

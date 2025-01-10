@@ -80,6 +80,9 @@ class _DataState extends State<Data> {
         "Emergency button accessible",
       ];
     }
+    if (type == "All roads") {
+      list.insert(6, "Remote Control design");
+    }
     for (String line in list) {
       if (![
         "Robot name",
@@ -197,7 +200,7 @@ class _DataState extends State<Data> {
                                             ),
                                           ),
                                           DataCell(Text(
-                                              CacheHelper.getData(key: list[i]),
+                                              "${CacheHelper.getData(key: list[i])}",
                                               style: const TextStyle(
                                                   fontSize: titleSize,
                                                   color: Color.fromARGB(
@@ -246,7 +249,6 @@ class _DataState extends State<Data> {
                                         .collection("Fighter");
                                     colRef.add({
                                       "Round": 1,
-                                      
                                       list[0]: CacheHelper.getData(key: list[0])
                                           .toString(),
                                       list[1]: CacheHelper.getData(key: list[1])
@@ -322,10 +324,48 @@ class _DataState extends State<Data> {
                                         "First image": firstimg,
                                         "Second image": secondimg,
                                       });
+                                    } else if (type == "All roads") {
+                                      colRef.add({
+                                        "Round": 1,
+                                        list[0]:
+                                            CacheHelper.getData(key: list[0])
+                                                .toString(),
+                                        list[1]:
+                                            CacheHelper.getData(key: list[1])
+                                                .toString(),
+                                        list[2]: int.tryParse(
+                                            CacheHelper.getData(key: list[2])),
+                                        list[3]: int.tryParse(
+                                            CacheHelper.getData(key: list[3])
+                                                .toString()),
+                                        list[4]: int.tryParse(
+                                            CacheHelper.getData(key: list[4])
+                                                .toString()),
+                                        list[5]: int.tryParse(
+                                            CacheHelper.getData(key: list[5])
+                                                .toString()),
+                                        list[6]: int.tryParse(
+                                            CacheHelper.getData(key: list[6])
+                                                .toString()),
+                                        list[7]: double.tryParse(
+                                            CacheHelper.getData(key: list[7])
+                                                .toString()),
+                                        list[8]: double.tryParse(
+                                            CacheHelper.getData(key: list[8])
+                                                .toString()),
+                                        list[9]: double.tryParse(
+                                            CacheHelper.getData(key: list[9])
+                                                .toString()),
+                                        list[10]: double.tryParse(
+                                            CacheHelper.getData(key: list[10])
+                                                .toString()),
+                                        list[11]: point,
+                                        "First image": firstimg,
+                                        "Second image": secondimg,
+                                      });
                                     } else {
                                       colRef.add({
                                         "Round": 1,
-                                        
                                         list[0]:
                                             CacheHelper.getData(key: list[0])
                                                 .toString(),

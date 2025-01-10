@@ -28,6 +28,9 @@ class _FirstScreenState extends State<FirstScreen> {
         name2: "Command board",
         name3: "Mechanical design", 
         name4: "Electrical design",
+        name5:type=="All roads"?"Remote Control design":null,
+        maxName3:20,
+        maxName4:20,
         routeForward:SecondScreen.routeName,
       ),
     );
